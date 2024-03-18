@@ -1,107 +1,76 @@
-#include<stdlib.h>
-#include<stdio.h>
-#include<string.h>
-#define max_size 5
-int stack[max_size],top=-1,flag=1;
-int i,temp,item,rev[max_size],num[max_size];
-void push();
-void pop();
-void display();
-void pali();
-int main()
+#include <stdio.h>
+#include <stdlib.h>
+int s[5],top=-1;
+
+void push()
 {
-int choice;
-printf("\n\n--------STACK OPERATIONS ------ \n");
-printf("1.Push\n");
-printf("2.Pop\n"); printf("3.Palindrome\n"); printf("4.Display\n"); printf("5.Exit\n");
-printf(" ");
-while(1)
-{
-printf("\nEnter your choice:\t");
-scanf("%d",&choice);
-switch(choice)
-{
-case 1: push();break;
-case 2: pop();
-if(flag)
-printf("\nThe poped element: %d\t",item);
-temp=top; break;
-case 3: pali();
-top=temp; break;
-case 4: display(); break;
-case 5: exit(0); break;
-default: printf("\nInvalid choice:\n"); break;
+    if(top==4)
+        printf("\nStack overflow!!!!");
+    else
+    {
+        printf("\nEnter element to insert:");
+        scanf("%d",&s[++top]);
+    }
 }
-}
-//return 0;
-}
-void push() //Inserting element into the stack
+
+void pop()
 {
-if(top==(max_size-1))
-{
-printf("\nStack Overflow:");
+    if(top==-1)
+        printf("\nStack underflow!!!");
+    else
+        printf("\nElement popped is: %d",s[top--]);
 }
-else
+void disp()
 {
-printf("Enter the element to be inserted:\t");
-scanf("%d",&item);
-top=top+1;
-stack[top]=item;
-}
-temp=top;
-}
-void pop() //deleting an element from the stack
-{
-if(top==-1)
-{
-printf("Stack Underflow:");
-flag=0;
-}
-else
-{
-item=stack[top];
-top=top-1;
-}
+    int t=top;
+    if(t==-1)
+        printf("\nStack empty!!");
+    else
+        printf("\nStack elements are:\n");
+    while(t>=0)
+        printf("%d ",s[t--]);
 }
 void pali()
-{ i=0;
-if(top==-1)
 {
-printf("Push some elements into the stack first\n");
+    int num[5],rev[5],i,t;
+    for(i=0,t=top;t>=0;i++,t--)
+        num[i]=rev[t]=s[t];
+    for(i=0;i<=top;i++)
+        if(num[i]!=rev[i])
+        break;
+    /*printf(" num     rev\n");
+    for(t=0;t<=top;t++)
+      printf("%4d   %4d\n",num[t],rev[t]);*///remove /* */ to display num and rev
+    if(i==top+1)
+        printf("\nIt is a palindrome");
+    else
+        printf("\nIt is not a palindrome");
 }
-else
+
+int main()
 {
-while(top!=-1)
-{
-rev[top]=stack[top]; pop();
-}
-top=temp;
-for(i=0;i<=temp;i++)
-{
-if(stack[top--]==rev[i])
-{
-if(i==temp)
-{
-printf("Palindrome\n"); return;
-}
-}
-}
-printf("Not Palindrome\n");
-}
-}
-void display()
-{
-int i; top=temp;
-if(top==-1)
-{
-printf("\nStack is Empty:");
-}
-else
-{
-printf("\nThe stack elements are:\n" );
-for(i=top;i>=0;i--)
-{
-printf("%d\n",stack[i]);
-}
-}
+    int ch;
+    do
+    {
+        printf("\n...Stack operations.....\n");
+        printf("1.PUSH\n");
+        printf("2.POP\n");
+        printf("3.Palindrome\n");
+        printf("4.Display\n");
+        printf("5.Exit\n________________\n");
+        printf("Enter choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:push();break;
+            case 2:pop();break;
+            case 3:pali();break;
+            case 4:disp();break;
+            case 5:exit(0);
+            default:printf("\nInvalid choice");
+        }
+    }
+    while(1);
+    return 0;
+
 }
