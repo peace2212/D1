@@ -1,39 +1,32 @@
 #include<stdio.h>
+
 void main()
 {
-char STR[100],PAT[100],REP[100],ans[100];
-int i,j,c,m,k,flag=0;
-printf("\nEnter the MAIN string: \n"); gets(STR);
-printf("\nEnter a PATTERN string: \n"); gets(PAT);
-printf("\nEnter a REPLACE string: \n"); gets(REP);
-i = m = c = j = 0; while ( STR[c] != '\0') {
-// Checking for Match
-if ( STR[m] == PAT[i]
-) { i++; m++;
-flag=1;
-if ( PAT[i] == '\0')
-{
-//copy replace string in ans string
-for(k=0; REP[k] != '\0';k++,j++)
-ans[j] = REP[k];
-i=0;
-c=m;
-}
-}
-else //mismatch
-{
-ans[j] = STR[c];
-j++; c++;
-m = c; i=0;
-}
-}
-if(flag==0)
-{
-printf("Pattern doesn't found!!!");
-}
-else
-{
-ans[j] = '\0';
-printf("\nThe RESULTANT string is:%s\n" ,ans);
-}
+  char s[20],pat[20],rep[20],ans[30];
+  int i,j,k,l,flag;
+  printf("\nEnter string:");
+  scanf("%s",s);
+  printf("\nEnter pattern:");
+  scanf("%s",pat);
+  printf("\nEnter replacement:");
+  scanf("%s",rep);
+  for(i=0,k=0;s[i]!='\0';i++)
+  {
+    flag=1;
+    for(j=0;pat[j]!='\0';j++)
+      if(s[i+j]!=pat[j])
+        flag=0;
+    l=j;
+    if(flag)
+    {
+      for(j=0;rep[j]!='\0';j++,k++)
+        ans[k]=rep[j];
+      i+=l-1;
+    }
+    else
+      ans[k++]=s[i];
+  }
+  ans[k]='\0';
+  printf("%s",ans);
+
 }
