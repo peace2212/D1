@@ -46,27 +46,25 @@ printf("\nThe result is : %f\n", res);
 
 
 b
-
 #include<stdio.h>
-#include<math.h>
-void tower(int n, int source, int temp, int destination);
-
-void tower(int n, int source, int temp, int destination)
+#include<stdlib.h>
+void TOH( int n, char A, char B, char C);
+void main()
 {
-if(n == 0)
- return;
-tower(n-1, source, destination, temp);
-printf("\nMove disc %d from %c to %c", n, source, destination);
-tower(n-1, temp, source, destination);
+	int n;
+	printf("Enter number of rings:\n");
+	scanf("%d", &n);
+	TOH(n, 'A', 'C', 'B');
+}
+void TOH( int n, char A, char B, char C)
+{
+	if(n==1)
+		printf("Move from %c to %c\n",A, B);
+	else
+	{
+		TOH(n-1, A, C, B);
+		TOH(1, A, B, C);
+		TOH(n-1, C, B, A);
+	}
 }
 
-void main ()
-{
-int n;
-printf("\nEnter the number of discs: \n\n");
-scanf("%d", &n);
-printf("\nThe sequence of moves involved in the Tower of Hanoi are\n");
-tower(n, 'A', 'B', 'C');
-printf("\n\nTotal Number of moves are: %d\n", (int)pow(2,n)-1);
-
-}
